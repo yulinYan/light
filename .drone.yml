@@ -1,10 +1,12 @@
-kind: "pipeline"
-name: "default"
+kind: pipeline
+name: default
+
 steps:
   - name: "node"
-    image: node:13.3.0-alpine3.10
+    image: guoxudongdocker/node-drone
     commands:
     - cd src
+    - npm install
     - npm run build
  
   - name: "构建镜像"
@@ -18,20 +20,19 @@ steps:
       repo: "registry-vpc.cn-shanghai.aliyuncs.com/guoxudong/test"
       registry: "registry-vpc.cn-shanghai.aliyuncs.com"
       tags: "${DRONE_BUILD_NUMBER}"
-    depends_on: [ "Maven编译" ]
+
   - name: "Kubernetes 部署"
     image: "guoxudongdocker/kubectl"
     settings:
       config: "deploy/overlays/uat"
       timeout: 300
       check: false
-    depends_on: [ "构建镜像" ]
   - name: "前端构建"
     image: "guoxudongdocker/node-drone"
     commands:
       - "npm install"
       - "npm run build"
-    depends_on: [ "clone" ]
+ 
   - name: "前端上传"
     image: "guoxudongdocker/node-drone"
     commands:
@@ -46,7 +47,6 @@ steps:
       message_color: true
       message_pic: true
       sha_link: true
-    depends_on: [ "前端上传","Kubernetes 部署" ]
     when:
       status:
         - "failure"
