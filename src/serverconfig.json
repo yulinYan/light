@@ -1,0 +1,9 @@
+{
+  "data": {
+    "ipNormal": "/customer",
+    "ipPix": "",
+    "ipPro": "/pro",
+    "ipWs": "/customer",
+    "ipWsMonitor": "/monitor/api/v1"
+  }
+}
