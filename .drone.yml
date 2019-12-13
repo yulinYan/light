@@ -36,8 +36,9 @@ steps:
     port: 22
     script:
     - cd /opt/light
-    - let reNum=${DRONE_BUILD_NUMBER}-1
-    - sed -i 's/nginx:1.16.1-alpine:${reNum}/nginx:1.16.1-alpine:${DRONE_BUILD_NUMBER}' /opt/light/docker-compose.yml
+    - let RENUM=${DRONE_BUILD_NUMBER}-1
+    - sed -i 's/nginx:1.16.1-alpine:${RENUM}/nginx:1.16.1-alpine:${DRONE_BUILD_NUMBER}' /opt/light/docker-compose.yml
+    - docker stop lightnginx && docker rm lightnginx
     - docker-compose up -d
 
 - name: 钉钉通知
