@@ -38,10 +38,7 @@ steps:
       from_secret: ssh_password
     port: 22
     script:
-    - RENUM=$(grep hub.dh.com/zhzm/web /opt/light/docker-compose.yml | cut -d : -f 3)
-    - sed -i 's?hub.dh.com/zhzm/web:${RENUM}?hub.dh.com/zhzm/web:${DRONE_BUILD_NUMBER}?' /opt/light/docker-compose.yml
-    - docker stop lightnginx && docker rm lightnginx
-    - cd /opt/light && docker-compose up -d
+    - bash /root/webtag.sh ${DRONE_BUILD_NUMBER}
 
 - name: 钉钉通知
   image: lddsb/drone-dingtalk-message
