@@ -36,7 +36,7 @@ steps:
     port: 22
     script:
     - cd /opt/light
-    - let RENUM=${DRONE_BUILD_NUMBER}-1
+    - RENUM=$(grep nginx:1.16.1-alpine docker-compose.yml | cut -d : -f 4)
     - sed -i 's/nginx:1.16.1-alpine:${RENUM}/nginx:1.16.1-alpine:${DRONE_BUILD_NUMBER}' /opt/light/docker-compose.yml
     - docker stop lightnginx && docker rm lightnginx
     - docker-compose up -d
