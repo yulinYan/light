@@ -20,3 +20,26 @@ steps:
     registry: hub.dh.com
     tags: ${DRONE_BUILD_NUMBER}
     context: ./dist
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  - name: daemon
+    path: /etc/docker/certs.d/hub.dh.com
+
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+- name: daemon
+  host:
+    path: /etc/docker/certs.d/hub.dh.com
+- name: mvncache
+  host:
+    path: /var/lib/mvn
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
