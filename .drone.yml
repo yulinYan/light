@@ -5,7 +5,7 @@ steps:
 - name: node
   image: guoxudongdocker/node-drone
   commands:
-  - rm -rf static/ && rm -rf index.html && rm -rf serverconfig.json
+  - rm -rf ./dist/static/ && rm -rf ./dist/index.html && rm -rf ./dist/serverconfig.json
   - npm install
   - npm run build
 
