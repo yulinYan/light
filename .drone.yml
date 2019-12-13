@@ -25,6 +25,9 @@ steps:
     path: /var/run/docker.sock
   - name: daemon
     path: /etc/docker/certs.d/hub.dh.com
+  - name: npmcache
+    path: /drone/src/node_modules
+
 
 - name: run
   image: hub.dh.com/library/drone-ssh
@@ -36,7 +39,7 @@ steps:
     port: 22
     script:
     - RENUM=$(grep hub.dh.com/zhzm/web /opt/light/docker-compose.yml | cut -d : -f 3)
-    - sed -i 's/hub.dh.com/zhzm/web:${RENUM}/hub.dh.com/zhzm/web:${DRONE_BUILD_NUMBER}' /opt/light/docker-compose.yml
+    - sed -i 's?hub.dh.com/zhzm/web:${RENUM}?hub.dh.com/zhzm/web:${DRONE_BUILD_NUMBER}?' /opt/light/docker-compose.yml
     - docker stop lightnginx && docker rm lightnginx
     - cd /opt/light && docker-compose up -d
 
@@ -59,9 +62,9 @@ volumes:
 - name: daemon
   host:
     path: /etc/docker/certs.d/hub.dh.com
-- name: mvncache
+- name: npmcache
   host:
-    path: /var/lib/mvn
+    path: /var/lib/npm
 trigger:
   branch:
   - master
