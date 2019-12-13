@@ -26,6 +26,32 @@ steps:
   - name: daemon
     path: /etc/docker/certs.d/hub.dh.com
 
+- name: run
+  image: hub.dh.com/library/drone-ssh
+  settings:
+    host: 192.168.1.22
+    username: root
+    password:
+      from_secret: ssh_password
+    port: 22
+    script:
+    - cd /opt/light
+    - let reNum=${DRONE_BUILD_NUMBER}-1
+    - sed -i 's/nginx:1.16.1-alpine:${reNum}/nginx:1.16.1-alpine:${DRONE_BUILD_NUMBER}' /opt/light/docker-compose.yml
+    - docker-compose up -d
+  depends_on: [ "build" ]
+
+- name: 钉钉通知
+  image: lddsb/drone-dingtalk-message
+  settings:
+    token:
+      from_secret: dingding
+    type: markdown
+    tpl: "http://192.168.1.22"
+    tips_title: "sssssss"
+    success_color: "000000"
+    failure_color: "FF0000"
+
 
 volumes:
 - name: docker
