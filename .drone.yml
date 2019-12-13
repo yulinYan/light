@@ -8,6 +8,10 @@ steps:
   - rm -rf ./dist/static/ && rm -rf ./dist/index.html && rm -rf ./dist/serverconfig.json
   - npm install
   - npm run build
+  volumes:
+  - name: npmcache
+    path: /drone/src/node_modules
+
 
 - name: build
   image: plugins/docker
