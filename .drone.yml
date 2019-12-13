@@ -2,12 +2,20 @@ kind: pipeline
 name: default
 
 steps:
-  - name: "node"
-    image: guoxudongdocker/node-drone
-    commands:
-    - cd src
-    - npm install
-    - npm run build
-    - ls -al
-    - ls -al ./dist
- 
+- name: node
+  image: guoxudongdocker/node-drone
+  commands:
+  - npm install
+  - npm run build
+
+- name: build
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_user
+    password:
+      from_secret: docker_pass
+    repo: hub.dh.com/zhzm/web
+    registry: hub.dh.com
+    tags: ${DRONE_BUILD_NUMBER}
+    context: ./dist
