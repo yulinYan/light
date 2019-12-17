@@ -20,12 +20,12 @@ export function getAjax(url, params = {}) {
         reslove(res);
       })
       .catch(err => {
-        if (err.response) {
-          this.$message({
-            type: 'error',
-            message: err.response.data.message
-          });
-        }
+        // if (err.response) {
+        //   this.$message({
+        //     type: 'error',
+        //     message: err.response.data.message
+        //   });
+        // }
         reject(err)
       })
   })
@@ -41,12 +41,12 @@ export function postAjax(url, params = {}) {
         reslove(res);
       })
       .catch(err => {
-        if (err.response) {
-          this.$message({
-            type: 'error',
-            message: err.response.data.message
-          });
-        }
+        // if (err.response) {
+        //   this.$message({
+        //     type: 'error',
+        //     message: err.response.data.message
+        //   });
+        // }
         reject(err)
       })
   })
@@ -63,12 +63,12 @@ export function http(url, type, headers, params = {}) {
     }).then(res => {
       reslove(res)
     }).catch(err => {
-      if (err.response) {
-        this.$message({
-          type: 'error',
-          message: err.response.data.message
-        });
-      }
+      // if (err.response) {
+      //   this.$message({
+      //     type: 'error',
+      //     message: err.response.data.message
+      //   });
+      // }
       reject(err)
     })
   })
