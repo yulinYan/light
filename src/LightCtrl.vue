@@ -843,9 +843,13 @@ export default {
                       message: '设置成功'
                     });
                   }
-                })["catch"](() => {
+                })["catch"]((err) => {
                   this.ajaxTimeOut = true;
                   this.$root.Bus.$emit("showLoading", false);
+                  this.$message({
+                    type: 'error',
+                    message: err.response.data.message
+                  });
                 });
             } else {
               this.$root.Bus.$emit("showLoading", false);
@@ -1401,7 +1405,7 @@ export default {
     },
     // 改变分组
     groupChange(light) {
-      // console.log(light)
+      console.log(light)
       this.futureChecked = false;
       this.futureFalseChecked = false;
       this.activeLightsCalendar = [];
@@ -1412,19 +1416,35 @@ export default {
       } else {
         let l = light.split('+')[1].split('-');
         // console.log('----------------------------')
-        this.lights.forEach((v, i) => {
-          $("#lightsImg" + v.shortAddr).attr('click', false);
-          $("#lightsImg" + v.shortAddr).next().hide();
-          l.filter((vLight, iLight) => {
-            // debugger
-            if (v.shortAddr == vLight) {
-              $("#lightsImg" + v.shortAddr).attr('click', true);
-              $("#lightsImg" + v.shortAddr).next().show();
-              this.activeLightsCalendar.push(v);
-              l.splice(l.findIndex(item => item === vLight), 1)
-            }
+        if (this.tabIndex == 0) {
+          this.lights.forEach((v, i) => {
+            $("#lightsImg" + v.shortAddr).attr('click', false);
+            $("#lightsImg" + v.shortAddr).next().hide();
+            l.filter((vLight, iLight) => {
+              // debugger
+              if (v.shortAddr == vLight) {
+                $("#lightsImg" + v.shortAddr).attr('click', true);
+                $("#lightsImg" + v.shortAddr).next().show();
+                this.activeLightsCalendar.push(v);
+                l.splice(l.findIndex(item => item === vLight), 1)
+              }
+            })
           })
-        })
+        } else {
+          this.lights.forEach((v, i) => {
+            $("#lightsImg" + v.shortAddr + ' img.lightsImg').attr('click', false);
+            $("#lightsImg" + v.shortAddr + ' img.chooseImg').hide();
+            l.filter((vLight, iLight) => {
+              // debugger
+              if (v.shortAddr == vLight) {
+                $("#lightsImg" + v.shortAddr + ' img.lightsImg').attr('click', true);
+                $("#lightsImg" + v.shortAddr + ' img.chooseImg').show();
+                this.activeLightsCalendar.push(v);
+                l.splice(l.findIndex(item => item === vLight), 1)
+              }
+            })
+          })
+        }
       }
     },
     // 获取工厂信息

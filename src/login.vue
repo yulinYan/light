@@ -42,7 +42,7 @@ export default {
   name: 'login',
   data() {
     return {
-      h1: '欢迎进入智慧照明系统',
+      h1: '欢迎使用智慧照明系统',
       logoImg: logoImg,
       background: background,
       form: {

@@ -6,7 +6,7 @@
       <span class="fr el-icon-plus" @click="newTable" v-if="show.save">新建定时</span>
     </p>
     <div style="padding-bottom:30px;" class="boxLightTime">
-      <el-table  :data="tableData" stripe highlight-current-row style="width: 100%;" :cell-style="cellStyle" :header-cell-style="headerStyle">
+      <el-table :data="tableData" stripe highlight-current-row style="width: 100%;" :cell-style="cellStyle" :header-cell-style="headerStyle">
         <el-table-column prop="name" label="定时名称">
         </el-table-column>
         <el-table-column prop="time" label="设定时间">
@@ -50,7 +50,7 @@
   center :close-on-click-modal="closeclickmodal">
   <el-form class="fromRequire" ref="form" :model="form" label-width="104px" label-position="left">
   <el-form-item label="定时名称">
-    <el-input v-model="form.name"></el-input>
+    <el-input v-model="form.name" maxlength="20" placeholder="小于20个字符"></el-input>
   </el-form-item>
   <el-form-item label="选择厂区">
     <el-select :disabled="title=='详情'" v-model="form.zoneId" id="formZoneId" placeholder="选择厂区" @change="changeZoneId">
@@ -94,7 +94,7 @@
 </el-switch>
   </el-form-item>
   <el-form-item label="描述">
-    <el-input type="textarea" resize="none" v-model="form.description"></el-input>
+    <el-input type="textarea" resize="none" v-model="form.description" maxlength="50" placeholder="小于50个字符"></el-input>
   </el-form-item>
 </el-form>
   <span slot="footer" class="dialog-footer">
@@ -192,7 +192,7 @@ export default {
         text: '周六'
       }, {
         id: 7,
-        text: '周天'
+        text: '周日'
       }],
       categoryIdOptions: [],
       zoneIdOptions: [],
@@ -310,7 +310,7 @@ export default {
                     week[i] = '周六';
                     break;
                   case '7':
-                    week[i] = '周天';
+                    week[i] = '周日';
                     break;
                 }
               })
@@ -386,7 +386,7 @@ export default {
             case '周六':
               obj.week[i] = '6';
               break;
-            case '周天':
+            case '周日':
               obj.week[i] = '7';
               break;
           }
@@ -404,6 +404,7 @@ export default {
         if (this.openType == 0) {
           saveLightSchedule(formData)
             .then(res => {
+              this.$root.Bus.$emit("showLoading", false);
               if (res.resultCode == 'success') {
                 this.$message({
                   type: 'success',
@@ -412,8 +413,12 @@ export default {
                 obj = null;
                 this.getTable();
                 this.cancle();
-                this.$root.Bus.$emit("showLoading", false);
                 formData = null;
+              } else {
+                this.$message({
+                  type: 'error',
+                  message: '添加失败'
+                });
               }
             })
         } else {
@@ -578,7 +583,7 @@ export default {
       rowIndex,
       columnIndex
     }) {
-     let style = {
+      let style = {
         'background-color': '#f2f4f6',
         'font-size': '16px',
         'color': '#101010',
@@ -601,7 +606,7 @@ export default {
       rowIndex,
       columnIndex
     }) {
-       let style = {
+      let style = {
         'text-align': 'center',
         'font-size': '14px',
         'height': '60px',
@@ -632,7 +637,7 @@ export default {
       rowIndex,
       columnIndex
     }) {
-     let style = {
+      let style = {
         'background-color': '#f2f4f6',
         'font-size': '16px',
         'color': '#101010',
@@ -780,7 +785,7 @@ export default {
             margin-right: 6px;
           }
         }
-        &:nth-of-type(2) .cell div {
+        .cell div {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

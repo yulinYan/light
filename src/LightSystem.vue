@@ -152,7 +152,7 @@ export default {
         if (img.size / 1024 > 1024) {
           this.$message({
             type: 'error',
-            message: '图片大小大于1M!'
+            message: '图片大于1M!'
           });
           return;
         }
@@ -180,12 +180,12 @@ export default {
           // console.log(this.editor.txt.html())
           // console.log(this.logo)
           let formData = new FormData();
-          formData.append('logow', this.logo)
+          formData.append('logow', this.logo || '')
           formData.append('titleStyle', this.editor.txt.html())
-          formData.append('logon1', this.daohanglan1920)
+          formData.append('logon1', this.daohanglan1920 || '')
           // formData.append('logon2', this.daohanglan1440)
-          formData.append('webMaps', this.webMaps)
-          formData.append('headerMap', this.icoIcon)
+          formData.append('webMaps', this.webMaps || '')
+          formData.append('headerMap', this.icoIcon || '')
           if (!isNaN(this.ifUpdate) && this.ifUpdate > 0) {
             if (!this.show.updateUserDefined) {
               this.$message({

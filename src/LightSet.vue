@@ -16,7 +16,7 @@
         </div>
         <div v-if="tableData.length != 0">
           <label for="">备注：</label>
-          <el-input v-model="projectForm.remarks"></el-input>
+          <el-input v-model="projectForm.remarks" maxlength="50" placeholder="小于50个字符"></el-input>
         </div>
         <div>
           <label for="">上传地图：</label>

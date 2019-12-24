@@ -102,6 +102,7 @@ export default {
   name: "LightStatistics",
   data() {
     return {
+      url: this.ipNormal + '/api/v1/',
       show: {
         CurDayHourPower: true,
         area: true,
@@ -448,6 +449,10 @@ export default {
     },
     ifSendAjax() {
       let obj = {};
+      if (this.rangeValueStart == '' || this.rangeValueEnd == '') {
+        this.$root.Bus.$emit("showLoading", false);
+        return false;
+      }
       switch (this.timeValue) {
         case 'datetime':
           obj = {

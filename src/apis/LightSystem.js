@@ -9,6 +9,6 @@ export const updateUserDefined = (formData) => {
   return $http(`${url}sysSeting/updateUserDefined`, 'post', 'multipart/form-data', formData)
 }
 // 添加
-export const insertUserDefined = () => {
+export const insertUserDefined = (formData) => {
   return $http(`${url}sysSeting/insertUserDefined`, 'post', 'multipart/form-data', formData)
 }
