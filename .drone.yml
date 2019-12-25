@@ -1,0 +1,74 @@
+kind: pipeline
+name: default
+
+steps:
+- name: node
+  image: guoxudongdocker/node-drone
+  commands:
+  - rm -rf ./dist/static/ && rm -rf ./dist/index.html && rm -rf ./dist/serverconfig.json
+  - npm install
+  - npm run build
+  volumes:
+  - name: npmcache
+    path: /drone/src/node_modules
+
+
+- name: build
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_user
+    password:
+      from_secret: docker_pass
+    repo: hub.dh.com/zhzm/web
+    registry: hub.dh.com
+    tags: ${DRONE_BUILD_NUMBER}
+    context: ./dist
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  - name: daemon
+    path: /etc/docker/certs.d/hub.dh.com
+  - name: npmcache
+    path: /drone/src/node_modules
+
+
+- name: run
+  image: hub.dh.com/library/drone-ssh
+  settings:
+    host: 192.168.1.22
+    username: root
+    password:
+      from_secret: ssh_password
+    port: 22
+    script:
+    - bash /root/webtag.sh ${DRONE_BUILD_NUMBER}
+
+- name: 钉钉通知
+  image: lddsb/drone-dingtalk-message
+  settings:
+    token:
+      from_secret: dingding
+    type: markdown
+    tpl: "http://192.168.1.22"
+    tips_title: "sssssss"
+    success_color: "000000"
+    failure_color: "FF0000"
+
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+- name: daemon
+  host:
+    path: /etc/docker/certs.d/hub.dh.com
+- name: npmcache
+  host:
+    path: /var/lib/npm
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
