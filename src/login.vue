@@ -9,10 +9,10 @@
         <p><img :src='logoImg' alt="logo"></p>
         <h1 v-html="h1" ref="h1"></h1>
         <div class="formName el-form-item">
-          <input placeholder="User" v-model="form.name"/>
+          <input placeholder="User" v-model="form.name" />
         </div>
         <div class="el-form-item">
-          <input placeholder="Password" v-model="form.password" type="password" :show-password="true"/>
+          <input placeholder="Password" v-model="form.password" type="password" :show-password="true" />
         </div>
         <div class="setPassword">
         </div>
@@ -30,6 +30,7 @@
   </section>
 </div>
 </template>
+
 <script>
 // 图片
 import logoImg from './assets/img/login/logo.png';
@@ -347,6 +348,9 @@ export default {
           width: 350px;
           height: 40px;
           background: #3c70d7;
+          &:hover {
+            background: #3663bb;
+          }
           font-size: 16px;
           color: #ffffff;
           border-radius: 4px;

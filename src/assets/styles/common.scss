@@ -9,6 +9,7 @@ $m1024: 'screen and (max-width: 1024px)';
 $m800: 'screen and (max-width: 800px)';
 $h800: 'screen and (max-height: 800px)';
 $h720: 'screen and (max-height: 720px)';
+$h540: 'screen and (max-height: 540px)';
 
 @mixin text-overflow($width:100%, $display:block) {
   width: $width;

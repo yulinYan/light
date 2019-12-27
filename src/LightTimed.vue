@@ -3,7 +3,7 @@
   <div class="overview">
     <p class="header">
       <span>定时控制</span>
-      <span class="fr el-icon-plus" @click="newTable" v-if="show.save">新建定时</span>
+      <span class="fr" @click="newTable" v-if="show.save"><em class="el-icon-plus"></em>新建定时</span>
     </p>
     <div style="padding-bottom:30px;" class="boxLightTime">
       <el-table :data="tableData" stripe highlight-current-row style="width: 100%;" :cell-style="cellStyle" :header-cell-style="headerStyle">
@@ -14,11 +14,11 @@
     {{scope.row.time}}<br/><div style="cursor:pointer" :title="`${scope.row.week.join(' ')}`">{{scope.row.week.join(' ')}}</div>
 </template>
         </el-table-column>
-        <el-table-column prop="type" label="设备状态" width="90">
+        <el-table-column prop="type" label="设备状态" min-width="90">
         </el-table-column>
         <el-table-column prop="description" label="定时描述">
         </el-table-column>
-        <el-table-column label="编辑" width="240" v-if="show.update||show.remove">
+        <el-table-column label="编辑" width="260" v-if="show.update||show.remove">
 <template slot-scope="scope">
 <el-button v-if="show.update" type="text" @click="goLightTimeSet(scope.row)" size="small" class="detailsBtn">
   <img src="./assets/img/LightTimed/bianji.png" alt="">编辑</el-button>
@@ -31,7 +31,7 @@
 </el-switch>
 </template>
         </el-table-column>
-        <el-table-column prop="" label="执行结果" width="108">
+        <el-table-column prop="" label="执行结果" width="150">
 <template slot-scope="scope">
 <button @click="showTable(scope.row)" class="search"><i class="el-icon-search"></i>查看</button>
 </template>
@@ -334,7 +334,6 @@ export default {
       // console.log(this.form)
       for (let i in this.form) {
         if ((i != 'description' && i != 'enabled' && i != 'week' && this.form[i] == '') || (i == 'week' && this.form[i].length == 0)) {
-          console.log(111)
           this.$message({
             type: 'error',
             message: '请填写完整'
@@ -435,6 +434,7 @@ export default {
           formData.append('zoneName', obj.zoneName)
           formData.append('categoryName', obj.categoryName)
           formData.append('id', obj.id)
+          console.log(obj)
           updateLightSchedule(formData)
             .then(res => {
               if (res.resultCode == 'success') {
@@ -487,11 +487,35 @@ export default {
     goLightTimeSet(row) {
       this.title = '详情';
       // console.log(row)
-      this.form = { ...row
-      };
+      this.form = JSON.parse(JSON.stringify(row));
 
       let time = row.time.split(':');
       this.form.time = new Date(2019, 4, 2, time[0], time[1], time[2]);
+      this.form.week.forEach((v, i) => {
+        switch (v) {
+          case '周一':
+            this.form.week[i] = 1;
+            break;
+          case '周二':
+            this.form.week[i] = 2;
+            break;
+          case '周三':
+            this.form.week[i] = 3;
+            break;
+          case '周四':
+            this.form.week[i] = 4;
+            break;
+          case '周五':
+            this.form.week[i] = 5;
+            break;
+          case '周六':
+            this.form.week[i] = 6;
+            break;
+          case '周日':
+            this.form.week[i] = 7;
+            break;
+        }
+      })
       // console.log(this.form.time)
       this.form.type = this.form.type == '开灯' ? '1' : '0';
       // this.form.zoneId = String(this.form.zoneName);
@@ -691,6 +715,22 @@ export default {
 <style lang='scss'>
 @import "./assets/styles/common";
 .LightTimed {
+  div.el-dialog__body input,
+  .el-select,
+  div.el-date-editor.el-input {
+    height: auto;
+    min-height: 36px;
+  }
+  .el-dialog--center .el-dialog__body {
+    @include media($h540) {
+      padding: 6px 68px;
+    }
+  }
+  .el-dialog__footer {
+    @include media($h540) {
+      padding: 0 0 10px 0;
+    }
+  }
   width: 100%;
   height: 100%;
   position: relative;
@@ -710,22 +750,27 @@ export default {
   .el-switch__core {
     border-color: #d1d3d8;
     background-color: #dbdee3;
-    width: 40px !important;
-    height: 18px !important;
+    left: 5px;
+    width: 38px !important;
+    height: 16px !important;
     &::after {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
+      border: solid 1px #dce1ed;
       background-color: #b1b5c0;
-      @include position(absolute, 50%, none, none, -2px);
-      margin-top: -10px;
+      @include position(absolute, 50%, none, none, -8px);
+      margin-top: -13px;
     }
   }
   .el-switch.is-checked .el-switch__core {
     border-color: #9eb5e1;
+    border: solid 1px rgba(13, 69, 180, 0.3);
     background-color: #b1c6ef;
+    left: 0px;
     &::after {
       background-color: #3c70d7;
-      @include position(absolute, 50%, none, none, 37px);
+      border: solid 1px #ccdbf8;
+      @include position(absolute, 50%, none, none, 35px);
     }
   }
   .fromRequire {
@@ -789,6 +834,9 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+        }
+        &:nth-of-type(6) .cell div {
+          overflow: visible;
         }
         &:last-child .cell {
           overflow: visible;

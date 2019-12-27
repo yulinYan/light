@@ -55,11 +55,11 @@ if (process.env.NODE_ENV !== 'development') {
     console.log(error)
   })
 }else{
-  Vue.prototype.ipNormal = 'http://192.168.2.222:82/customer'; //设置成Vue的全局属性
-  Vue.prototype.ipPix = 'http://192.168.2.222:82'; //设置成Vue的全局属性
-  Vue.prototype.ipPro = 'http://192.168.2.222'; //设置成Vue的全局属性
-  Vue.prototype.ipWs = '192.168.2.222:82/customer'; //设置成Vue的全局属性
-  Vue.prototype.ipWsMonitor = '192.168.2.222:8887/api/v1'; //设置成Vue的全局属性
+  Vue.prototype.ipNormal = 'http://192.168.4.200/customer'; //设置成Vue的全局属性
+  Vue.prototype.ipPix = 'http://192.168.4.200'; //设置成Vue的全局属性
+  Vue.prototype.ipPro = 'http://192.168.4.200'; //设置成Vue的全局属性
+  Vue.prototype.ipWs = '192.168.4.200/customer'; //设置成Vue的全局属性
+  Vue.prototype.ipWsMonitor = '192.168.4.200:8887/api/v1'; //设置成Vue的全局属性
 
   new Vue({
     el: '#app',

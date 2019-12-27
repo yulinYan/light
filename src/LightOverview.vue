@@ -44,7 +44,7 @@
           <span>策略执行情况及预告</span>
         </p>
         <div id="strategy">
-          <el-table :data="strategyArr" stripe style="width: 100%;" :cell-style="cellStyle" :header-cell-style="headerStyle" :height="tableHeight">
+          <el-table :data="strategyArr" stripe style="width: 100%;" :cell-style="cellStyle" :header-cell-style="headerStyle" :height="tableHeight" :highlight-current-row="true">
             <el-table-column prop="name" label="名称">
               <template slot-scope="scope">
                 <span style="cursor:pointer" :title="'名称：'+scope.row.name+'，区域：'+scope.row.category+'，分组：'+scope.row.zone">{{scope.row.name}}</span>
@@ -117,7 +117,7 @@ export default {
         'img': 'time'
       }],
       option: {
-        color: ['#3c70d7', '#7ea6f2', '#D4E8FF', '#7DE5D2', '#FEAE7B', '#003399', '#3366cc', '#0087cb', '#3399ff', '#017890', '#587498', '#74828f', '#666633', '#99cccc', '#a1bad0', '#c25b56', '#ff9933', '#d0a727', '#f9ca79', '#d9ccb9'],
+        color: ['#3c70d7', '#7ea6f2', '#b6d2f3', '#7DE5D2', '#FEAE7B', '#003399', '#3366cc', '#0087cb', '#3399ff', '#017890', '#587498', '#74828f', '#666633', '#99cccc', '#a1bad0', '#c25b56', '#ff9933', '#d0a727', '#f9ca79', '#d9ccb9'],
         tooltip: {
           trigger: 'axis',
           backgroundColor: 'rgba(240, 244, 251, 0.8)',
@@ -469,15 +469,15 @@ export default {
                 stack: 'energy',
                 barGap: '30%',
                 barMaxWidth: '18',
-                itemStyle: {
-                  emphasis: {
-                    shadowBlur: 2,
-                    opacity: 1
-                  },
-                  normal: {
-                    barBorderRadius: [4, 4, 0, 0]
-                  }
-                },
+                // itemStyle: {
+                //   emphasis: {
+                //     shadowBlur: 2,
+                //     opacity: 1
+                //   },
+                //   normal: {
+                //     barBorderRadius: [4, 4, 0, 0]
+                //   }
+                // },
               })
               this.option.series = series;
               console.log(this.option)
@@ -619,6 +619,7 @@ export default {
 @import "./assets/styles/common";
 .LightOverview {
   width: 100%;
+  height: 100%;
   .el-table td {
     padding: 2px 0;
   }
@@ -636,6 +637,7 @@ export default {
     position: relative;
     li {
       &:hover {
+        transition: all .3s;
         box-shadow: 0px 15px 25px 0px rgba(49, 59, 87, 0.12);
       }
       width: calc( 100% / 4);
@@ -653,7 +655,7 @@ export default {
       }
       position: relative;
       background-color: #ffffff;
-      border-radius: 8px;
+      border-radius: 10px;
       opacity: 0;
       animation: liShow 0.2s ease-in-out forwards;
       .arror {
@@ -723,9 +725,9 @@ export default {
     }
   }
   .overview3 {
-    margin-top: 30px;
+    margin: 30px 0;
     @include media($m1366) {
-      margin-top: 15px;
+      margin: 15px 0;
     }
     display: flex;
     justify-content: space-between;
@@ -733,6 +735,7 @@ export default {
       width: calc(100% / 3);
       height: 100%;
       margin-top: 0;
+      overflow: hidden;
     }
     .overview:nth-of-type(2) {
       margin: 0 30px;

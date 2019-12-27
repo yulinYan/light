@@ -121,7 +121,7 @@ export default {
       getHistoryCharts: null,
       loading: true,
       option: {
-        color: ['#3c70d7', '#7ea6f2', '#D4E8FF', '#7DE5D2', '#FEAE7B', '#003399', '#3366cc', '#0087cb', '#3399ff', '#017890', '#587498', '#74828f', '#666633', '#99cccc', '#a1bad0', '#c25b56', '#ff9933', '#d0a727', '#f9ca79', '#d9ccb9'],
+        color: ['#3c70d7', '#7ea6f2', '#b6d2f3', '#7DE5D2', '#FEAE7B', '#003399', '#3366cc', '#0087cb', '#3399ff', '#017890', '#587498', '#74828f', '#666633', '#99cccc', '#a1bad0', '#c25b56', '#ff9933', '#d0a727', '#f9ca79', '#d9ccb9'],
         tooltip: {
           trigger: 'axis',
           backgroundColor: 'rgba(240, 244, 251, 0.8)',

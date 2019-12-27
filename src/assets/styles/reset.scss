@@ -139,7 +139,9 @@ table {
 }
 
 tr:hover td {
-  -webkit-box-shadow: 0 14px 12px -13px rgba(37, 69, 134, 0.2) inset, 0 -14px 12px -13px rgba(37, 69, 134, 0.2) inset;
+  background: rgb(233, 237, 241) !important;
+  transition: all 1s;
+  // -webkit-box-shadow: 0 14px 12px -13px rgba(37, 69, 134, 0.2) inset, 0 -14px 12px -13px rgba(37, 69, 134, 0.2) inset;
 }
 
 // tr td:first-child {
@@ -368,7 +370,7 @@ div.el-popover {
 }
 
 .el-form-item__label {
-  color: #303030;
+  color: #606266;
 }
 
 div.el-dialog {
@@ -376,7 +378,7 @@ div.el-dialog {
   margin: 0 auto !important;
   top: 50%;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   border: solid 1px #d8d8d8;
   transform: translateY(-50%);
   width: 580px !important;
@@ -420,7 +422,7 @@ div.el-dialog {
 }
 
 :-ms-input-placeholder {
-  color: #828282;
+  color: #828282 !important;
 }
 
 
@@ -451,7 +453,7 @@ div.el-dialog {
 .overview {
   width: 100%;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   margin: 30px auto 0px;
 
   &:nth-of-type(1) {

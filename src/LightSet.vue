@@ -450,6 +450,7 @@ export default {
           float: left;
           width: 105px;
           text-align: left;
+          font-size: 14px;
         }
         >div {
           float: right;

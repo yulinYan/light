@@ -26,6 +26,7 @@
       <div class="hotMapSevenChecked" v-if="tabIndex === 3">
         <el-checkbox id="hotMapSevenChecked" v-model="hotMapSevenChecked" @change="hotMapSevenCheckedChange">七天热力图</el-checkbox>
       </div>
+      <button v-if="activeLightsCalendar.length != 0&&tabIndex != 2" @click="cancalActive" class="cancalActive">清除选择</button>
       <img v-if="tabIndex !== 1" src="./assets/img/LightCtrl/state.png" alt="">
       <img v-else src="./assets/img/LightCtrl/zhuangtai.png" alt="">
       <ul class="fr" v-if="tabIndex == 1&&showDetailChecked">
@@ -586,6 +587,16 @@ export default {
           message: '进入控灯区域'
         });
       }
+    },
+    //取消选择
+    cancalActive() {
+      this.activeLightsCalendar = [];
+      this.groupingValue = '';
+      this.futureFalseChecked = '';
+      this.initLightStates();
+      $(".lightsImg").attr('click', false);
+      $(".chooseImg").hide();
+      this.averageLight();
     },
     // 选择灯
     showChildren(index, energy) {
@@ -2345,10 +2356,27 @@ export default {
     }
     button:nth-of-type(2),
     button:nth-of-type(3) {
-      width: 120px;
+      width: 70px;
       height: 32px;
       cursor: pointer;
       background-color: #ffffff;
+      border-radius: 4px;
+      line-height: 32px;
+      padding: 0;
+      font-size: 14px;
+      color: #303030;
+      float: left;
+      margin-right: 16px;
+      @include media($m1024) {
+        margin-right: 2px;
+      }
+    }
+    button.cancalActive {
+      width: 80px;
+      height: 32px;
+      cursor: pointer;
+      background-color: #ffffff;
+      border-radius: 4px;
       line-height: 32px;
       padding: 0;
       font-size: 14px;
@@ -2395,6 +2423,7 @@ export default {
       text-align: center;
       background-color: #ffffff;
       vertical-align: middle;
+      float: left;
       .el-checkbox__inner {
         border-radius: 50%;
       }

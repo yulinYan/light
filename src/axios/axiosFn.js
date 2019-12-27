@@ -8,8 +8,8 @@ if (process.env.NODE_ENV !== 'development') {
   ipNormal = 'http://' + window.location.href.split('://')[1].split('/')[0].split('#')[0] + '/customer/api/v1/';
   ipWsMonitor = 'http://' + window.location.href.split('://')[1].split('/')[0].split('#')[0] + '/monitor/api/v1/'
 } else {
-  ipNormal = 'http://192.168.2.222:82/customer/api/v1/';
-  ipWsMonitor = 'http://192.168.2.222:82/monitor/api/v1/';
+  ipNormal = 'http://192.168.4.200/customer/api/v1/';
+  ipWsMonitor = 'http://192.168.4.200/monitor/api/v1/';
 }
 export {
   ipNormal, ipWsMonitor
