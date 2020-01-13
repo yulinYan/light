@@ -1,6 +1,9 @@
 kind: pipeline
 name: default
 
+clone:
+  depth: 1
+
 steps:
 - name: node
   image: guoxudongdocker/node-drone
