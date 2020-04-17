@@ -398,7 +398,7 @@ export default {
       this.rangeValueStart = '';
       this.rangeValueEnd = '';
     },
-    numerialAreaChange() {
+    numerialAreaChange(chioceVal) {
       this.$root.Bus.$emit("showLoading", true);
       this.getHistoryStatistic();
     },
@@ -497,8 +497,10 @@ export default {
       } else if (this.areaValue[1] == 'categoryAll') {
         obj.zoneId = this.areaValue[0];
       } else if (this.areaValue[1].includes('-')) {
+        obj.zoneId = this.areaValue[0];
         obj.categoryId = 'all';
       } else {
+      	obj.zoneId = this.areaValue[0];
         obj.categoryId = this.areaValue[1]
       }
       if (obj.countUnit != '') {
